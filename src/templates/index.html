@@ -29,24 +29,29 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6 code-pane">
-                    <textarea class="form-control full-height monospace"></textarea>
-                </div>
-                <div class="col-sm-6 code-pane">
-                    <div id="view-pane" class="full-height well monospace">
-                        asdasd
-                    </div>
-                </div>
+                <div id="{{ pagelets.0.id }}" class="col-sm-6 code-pane"></div>
+                <div id="{{ pagelets.1.id }}" class="col-sm-6 code-pane"></div>
             </div>
         </div>
 
-    <script type="text/javascript" src="static/js/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="static/js/socket.io.js"></script>
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="static/js/visual.js"></script>
-    <script type="text/javascript" src="static/js/codecast.js"></script>
-  </body>
+        <script type="text/javascript" src="static/js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="static/js/socket.io.js"></script>
+        <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="static/js/visual.js"></script>
+        <script type="text/javascript" src="static/js/codecast.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            var pagelets = {{ pagelets|safe }};
+            for(var i=0; i<pagelets.length; i++) {
+                $.ajax({
+                    url: pagelets[i].url,
+                    async: false,
+                    success: function(result) {
+                        $('#' + pagelets[i].id).html(result);
+                    }
+                });
+            }
+        });
+        </script>
+    </body>
 </html>
-
-
-

@@ -5,8 +5,9 @@ monkey.patch_all()
 import gevent
 import pika
 from log import consumer_file, log
+from utils import pagelet_generator
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room
 
 
@@ -43,12 +44,28 @@ def callback(ch, method, properties, body):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    views = {
+        1: url_for('left_pane'),
+        2: url_for('right_pane'),
+    }
+    pagelets = pagelet_generator(views)
 
+    return render_template('index.html', pagelets=pagelets)
+
+
+@app.route('/left-pane')
+def left_pane():
+    return render_template('left_pane.html')
+
+
+@app.route('/right-pane')
+def right_pane():
+    return render_template('right_pane.html')
 
 ##################################
 #### Socket io specific codes ####
 ##################################
+
 
 # Connection established with a new client
 @socketio.on('connect')
