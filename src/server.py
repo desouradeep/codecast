@@ -17,9 +17,11 @@ socketio = SocketIO(app)
 thread = None
 
 
-# RabbitMQ specific codes.
-# This has to done here because we are mostly emitting using
-# the socketio object
+###################################
+##### RabbitMQ specific codes #####
+###################################
+# This has to done here because we are
+# mostly emitting using the socketio object
 
 def consumer():
     connection = pika.BlockingConnection(pika.ConnectionParameters(
@@ -37,10 +39,9 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-##################################
-########## Flask views ###########
-##################################
-
+###################################
+########### Flask views ###########
+###################################
 
 @app.route('/')
 def index():
@@ -48,10 +49,19 @@ def index():
         1: url_for('left_pane'),
         2: url_for('right_pane'),
     }
-    pagelets = pagelet_generator(views)
+    pagelets, ids = pagelet_generator(views)
 
-    return render_template('index.html', pagelets=pagelets)
+    return_dict = {
+        'pagelets': pagelets,
+        'ids': ids,
+    }
 
+    return render_template('index.html', **return_dict)
+
+
+###################################
+####### Flask pagelet views #######
+###################################
 
 @app.route('/left-pane')
 def left_pane():
@@ -62,10 +72,10 @@ def left_pane():
 def right_pane():
     return render_template('right_pane.html')
 
-##################################
-#### Socket io specific codes ####
-##################################
 
+###################################
+#### Socket io specific codes #####
+###################################
 
 # Connection established with a new client
 @socketio.on('connect')

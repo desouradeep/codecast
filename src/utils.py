@@ -14,10 +14,14 @@ def pagelet_generator(views):
     Bind urls with pagelet ids
     '''
     pagelets = []
+    ids = {}
+
     for key, value in views.iteritems():
+        id = id_generator()
         pagelets.append({
-            'id': id_generator(),
+            'id': id,
             'url': value,
         })
+        ids['ID_%s' % key] = id
 
-    return pagelets
+    return pagelets, ids
