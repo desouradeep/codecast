@@ -24,6 +24,10 @@ thread = None
 # mostly emitting using the socketio object
 
 def consumer():
+    '''
+    RabbitMQ consumer.
+    This is spawned in a greenlet using gevent.spawn in __init__
+    '''
     connection = pika.BlockingConnection(pika.ConnectionParameters(
         host='localhost'))
     channel = connection.channel()
@@ -34,6 +38,12 @@ def consumer():
 
 
 def callback(ch, method, properties, body):
+    '''
+    callback() is called during message consumption.
+    Function:
+        Emits the data to the 'data' channel, logs the data and acknowledges
+        the delivery.
+    '''
     socketio.emit('data', body)
     log(body, file=consumer_file)
     ch.basic_ack(delivery_tag=method.delivery_tag)
