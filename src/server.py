@@ -3,9 +3,8 @@ from gevent import monkey
 monkey.patch_all()
 
 import gevent
-import ipdb
 import pika
-from log import consumer_file, log
+from _logging import consumer_file, log, create_log_dir
 from utils import pagelet_dict_generator, validate_consumer_payload
 from publisher import push_to_queue
 
@@ -50,7 +49,7 @@ def callback(ch, method, properties, payload):
     if data is not None:
         socketio.emit('output-code-stream', data)
 
-    log(payload, file=consumer_file)
+    log(payload, type="Recieved", file=consumer_file)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
@@ -115,8 +114,22 @@ def input_code_stream(data):
     push_to_queue('code-stream', payload)
 
 
+def make_ready():
+    '''
+    Prepares external components to work with the server
+    '''
+    try:
+        # spawn rabbitmq consumer gevent greenlet
+        gevent.spawn(consumer)
+        # create log dir if not present
+        create_log_dir()
+        return "Fire!"
+    except Exception, e:
+        print e
+
 if __name__ == '__main__':
-    app.debug = True
-    # spawn rabbitmq consumer gevent greenlet
-    gevent.spawn(consumer)
-    socketio.run(app, host='0.0.0.0')
+    ready_to_fire = make_ready()
+
+    if ready_to_fire == "Fire!":
+        app.debug = True
+        socketio.run(app, host='0.0.0.0')
