@@ -58,10 +58,7 @@ Run the app:
 Optional
 --------
 
-1. RabbitMQ Management plugin:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-I. Enable the plugin::
+1. Enable the RabbitMQ management plugin::
 
       $ sudo rabbitmq-plugins enable rabbitmq_management
 
