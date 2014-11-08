@@ -13,6 +13,11 @@
 $(document).ready(function() {
     var pagelets = {{ pagelets|safe }};
     loadPagelets(pagelets);
+
+    $('#user-code').bind('keydown', function(data) {
+        socket.emit('input-code-stream', String.fromCharCode(data.keyCode));
+    });
+
 });
 </script>
 {% endblock %}

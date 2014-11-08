@@ -3,7 +3,7 @@ $(document).ready(function() {
     WEB_SOCKET_DEBUG = true;
 
     // Socket.io specific code
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket = io.connect('http://' + document.domain + ':' + location.port);
 
     socket.on('connect', function() {
         socket.emit('connect');
@@ -11,5 +11,10 @@ $(document).ready(function() {
 
     socket.on('data', function(data) {
         console.log(data);
+    });
+
+    socket.on('output-code-stream', function(data) {
+        console.log(data);
+        $('#view-pane').append(data);
     });
 });

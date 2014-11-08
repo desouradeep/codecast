@@ -3,9 +3,11 @@ from gevent import monkey
 monkey.patch_all()
 
 import gevent
+import ipdb
 import pika
 from log import consumer_file, log
-from utils import pagelet_generator
+from utils import pagelet_dict_generator, validate_consumer_payload
+from publisher import push_to_queue
 
 from flask import Flask, render_template, request, url_for
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room
@@ -32,20 +34,23 @@ def consumer():
         host='localhost'))
     channel = connection.channel()
     channel.basic_qos(prefetch_count=1)
-    channel.queue_declare(queue='task_queue', durable=True)
-    channel.basic_consume(callback, queue='task_queue')
+    channel.queue_declare(queue='code-stream', durable=True)
+    channel.basic_consume(callback, queue='code-stream')
     channel.start_consuming()
 
 
-def callback(ch, method, properties, body):
+def callback(ch, method, properties, payload):
     '''
     callback() is called during message consumption.
     Function:
         Emits the data to the 'data' channel, logs the data and acknowledges
         the delivery.
     '''
-    socketio.emit('data', body)
-    log(body, file=consumer_file)
+    data, broadcast = validate_consumer_payload(payload)
+    if data is not None:
+        socketio.emit('output-code-stream', data)
+
+    log(payload, file=consumer_file)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
@@ -59,7 +64,7 @@ def index():
         1: url_for('left_pane'),
         2: url_for('right_pane'),
     }
-    pagelets, ids = pagelet_generator(views)
+    pagelets, ids = pagelet_dict_generator(views)
 
     return_dict = {
         'pagelets': pagelets,
@@ -99,10 +104,19 @@ def disconnect():
     print 'Client disconnected'
 
 
-if __name__ == '__main__':
-    print 'Listening on http://localhost:5000'
-    app.debug = True
+# Connection to a client lost
+@socketio.on('input-code-stream')
+def input_code_stream(data):
+    payload = {
+        'data': data,
+        'broadcast': True,
+    }
 
+    push_to_queue('code-stream', payload)
+
+
+if __name__ == '__main__':
+    app.debug = True
     # spawn rabbitmq consumer gevent greenlet
     gevent.spawn(consumer)
-    socketio.run(app)
+    socketio.run(app, host='0.0.0.0')
