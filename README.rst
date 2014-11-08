@@ -16,6 +16,7 @@ Pythonic dependencies:
     2. flask
     3. flask-socketio
     4. pika
+    5. ipdb (for debugging purposes)
 
 Installation:
 
@@ -39,21 +40,35 @@ Installation::
 Run the app:
 ------------
 
-1. Switch to codecast virtualenv::
-
-    $ workon codecast
-
-2. Start the rabbitmq server with root priveleges::
+1. Start the rabbitmq server with root priveleges::
   
     $ sudo rabbitmq-server
 
-3. In a new tab, start the rabbitmq publisher:: 
+2. In a new terminal, switch to codecast virtualenv::
 
-    $ python publisher.py
+    $ workon codecast
 
-4. In another tab, start the flask server::
+4. Start the flask server::
 
     $ python server.py
 
 5. Now, open a browser, and point to ``localhost:5000``, to fire up a client.
+
+
+Optional
+--------
+
+1. RabbitMQ Management plugin:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+I. Enable the plugin::
+
+      $ sudo rabbitmq-plugins enable rabbitmq_management
+
+   Browse to ``localhost:15672`` to have a look at the RabbitMQ dashboard.
+
+2. Tail the log files (log directory: ``src/logs/``)::
+
+    $ tail -f consumer.log
+    $ tail -f publisher.log
 

@@ -2,4 +2,5 @@ gevent-socketio
 flask
 flask-socketio
 pika
+ipdb
 
