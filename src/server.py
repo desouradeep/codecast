@@ -34,7 +34,7 @@ def consumer():
     channel = connection.channel()
     channel.basic_qos(prefetch_count=1)
     channel.queue_declare(queue='code-stream', durable=True)
-    channel.basic_consume(callback, queue='code-stream')
+    channel.basic_consume(callback, queue='output-code-stream')
     channel.start_consuming()
 
 

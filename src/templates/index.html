@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="row">
-   <div id="{{ ids.ID_1 }}" class="col-sm-6 code-pane"></div>
-   <div id="{{ ids.ID_2 }}" class="col-sm-6 code-pane"></div>
+   <div id="{{ ids.ID_1 }}" class="col-sm-6 code-pane medium-margin"></div>
+   <div id="{{ ids.ID_2 }}" class="col-sm-6 code-pane medium-margin"></div>
 </div>
 {% endblock %}
 
@@ -17,6 +17,8 @@ $(document).ready(function() {
     $('#user-code').bind('keydown', function(data) {
         socket.emit('input-code-stream', String.fromCharCode(data.keyCode));
     });
+
+    $("#tabs").tabs()
 
 });
 </script>
