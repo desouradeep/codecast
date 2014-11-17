@@ -20,13 +20,21 @@ Pythonic dependencies:
 
 Installation:
 
+Install python-dev libxml2-dev libxslt-dev::
+    
+    $ sudo yum install python-dev libxml2-dev libxslt-dev
+
+
 Create a virtual environment, ``codecast``, and install the dependencies::
 
     $ sudo pip install virtualenvwrapper
     $ export WORKON_HOME=~/Envs
     $ mkdir -p $WORKON_HOME
-    $ source /usr/local/bin/virtualenvwrapper.sh
+    $ source /usr/bin/virtualenvwrapper.sh
     $ mkvirtualenv codecast
+
+Run in the project directory::
+
     $ pip install -r requirements.txt
 
 
