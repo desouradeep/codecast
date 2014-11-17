@@ -23,6 +23,7 @@ Installation:
 Create a virtual environment, ``codecast``, and install the dependencies::
 
     $ sudo pip install virtualenvwrapper
+    $ export WORKON_HOME=~/Envs
     $ mkdir -p $WORKON_HOME
     $ source /usr/local/bin/virtualenvwrapper.sh
     $ mkvirtualenv codecast
