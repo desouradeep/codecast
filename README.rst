@@ -23,6 +23,8 @@ Installation:
 Create a virtual environment, ``codecast``, and install the dependencies::
 
     $ sudo pip install virtualenvwrapper
+    $ mkdir -p $WORKON_HOME
+    $ source /usr/local/bin/virtualenvwrapper.sh
     $ mkvirtualenv codecast
     $ pip install -r requirements.txt
 
