@@ -1,20 +1,32 @@
 <div id="view-pane" class="full-height monospace">
     <div id="tabs">
-    <ul>
-        <li><a href="#tabs-1">Tab 1</a>
-        </li>
-        <li><a href="#tabs-2">Tab 2</a>
-        </li>
-        <li><a href="#tabs-3">Tab 3</a>
-        </li>
-    </ul>
-    <div id="tabs-1">
-        <p>Content for Tab 1</p>
-    </div>
-    <div id="tabs-2">
-        <p>Content for Tab 2</p>
-    </div>
-    <div id="tabs-3">
-        <p>Content for Tab 3</p>
+        <ul>
+            {% for nick_ in all_nicks %}
+                <li><a id="link-tab-{{ nick_ }}" href="#tabs-{{ nick_ }}">{{ nick_ }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% for nick_ in all_nicks %}
+        <div id="tabs-{{ nick_ }}" class='read-pane'></div>
+        {% endfor %}
     </div>
 </div>
+
+{% block extra_js %}
+<script type="text/javascript">
+socket.on('new-nick', function(nick) {
+    $("#tabs ul").append(
+        "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "'>" + nick + "</a></li>"
+    );
+    $("#tabs").append(
+        "<div id='tabs-" + nick + "' class='read-pane'></div>"
+    )
+    $("div#tabs").tabs("refresh");
+});
+
+socket.on('nick-remove', function(nick) {
+    $("#link-tab-" + nick).parent().remove();
+    $("#tabs-" + nick).remove();
+});
+</script>
+{% endblock %}

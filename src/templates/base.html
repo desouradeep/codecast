@@ -29,7 +29,25 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">CodeCast</a>
+
+                    {% if nick %}
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    {% endif %}
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
                 </div>
+
+                {% if nick %}
+                <div class="collapse navbar-collapse navHeaderCollapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>{{ nick }}</a></li>
+                        <li><a id="logout" href="#">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
             </div><!-- /.container-fluid -->
         </nav>
 
@@ -42,12 +60,22 @@
         <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="static/codecast/js/visual.js"></script>
         <script type="text/javascript" src="static/codecast/js/codecast.js"></script>
+        <script type="text/javascript" src="static/codecast/js/utils.js"></script>
 
         <script type="text/javascript" src="static/jquery-ui-bootstrap/assets/js/vendor/jquery-migrate-1.2.1.min.js"></script>
         <script type="text/javascript" src="static/jquery-ui-bootstrap/assets/js/vendor/holder.js"></script>
         <script type="text/javascript" src="static/jquery-ui-bootstrap/assets/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
         <script type="text/javascript" src="static/jquery-ui-bootstrap/assets/js/google-code-prettify/prettify.js"></script>
         <script type="text/javascript" src="static/jquery-ui-bootstrap/assets/js/docs.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            var nick = "{{ nick }}";
+            $("#logout").click(function() {
+                socket.emit("logout", nick);
+                window.location = 'http://' + document.domain + ':' + location.port;
+            });
+        });
+        </script>
 
         {% block extra_js %}{% endblock %}
     </body>

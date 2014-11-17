@@ -44,4 +44,16 @@ def validate_consumer_payload(payload):
     else:
         data = None
 
-    return data, broadcast
+    if 'nick' in payload:
+        nick = payload['nick']
+    else:
+        nick = ''
+
+    return data, broadcast, nick
+
+
+def get_value_from_key(key, dict):
+    if key in dict:
+        return dict[key]
+    else:
+        return ''

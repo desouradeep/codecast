@@ -9,22 +9,17 @@ $(document).ready(function() {
         socket.emit('connect');
     });
 
+    socket.on('disconnect', function() {
+        socket.emit('disconnect');
+    });
+
     socket.on('data', function(data) {
         console.log(data);
     });
 
-    socket.on('output-code-stream', function(data) {
-        console.log(data);
-        $('#view-pane').append(data);
+    socket.on('output-code-stream', function(payload_) {
+        var payload = JSON.parse(payload_);
+        var nick = payload.nick;
+        $('#tabs-' + nick).append(payload.data);
     });
-
-    $("#tabs").tabs({
-    activate: function (event, ui) {
-        var active = $('#tabs').tabs('option', 'active');
-        $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
-
-    }
-}
-
-);
 });

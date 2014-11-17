@@ -15,7 +15,7 @@ function onResize() {
     /**
      adjustments related to height
     **/
-
+    $('.login').height($(window).height());
     // adjust textarea height
     $('.code-pane').height(window_height-80);
 }
