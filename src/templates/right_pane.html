@@ -1,1 +1,32 @@
-<div id="view-pane" class="full-height well monospace"></div>
+<div id="view-pane" class="full-height monospace">
+    <div id="tabs">
+        <ul>
+            {% for nick_ in all_nicks %}
+                <li><a id="link-tab-{{ nick_ }}" href="#tabs-{{ nick_ }}">{{ nick_ }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% for nick_ in all_nicks %}
+        <div id="tabs-{{ nick_ }}" class='read-pane'></div>
+        {% endfor %}
+    </div>
+</div>
+
+{% block extra_js %}
+<script type="text/javascript">
+socket.on('new-nick', function(nick) {
+    $("#tabs ul").append(
+        "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "'>" + nick + "</a></li>"
+    );
+    $("#tabs").append(
+        "<div id='tabs-" + nick + "' class='read-pane'></div>"
+    )
+    $("div#tabs").tabs("refresh");
+});
+
+socket.on('nick-remove', function(nick) {
+    $("#link-tab-" + nick).parent().remove();
+    $("#tabs-" + nick).remove();
+});
+</script>
+{% endblock %}

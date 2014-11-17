@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="row">
-   <div id="{{ ids.ID_1 }}" class="col-sm-6 code-pane"></div>
-   <div id="{{ ids.ID_2 }}" class="col-sm-6 code-pane"></div>
+   <div id="{{ ids.ID_1 }}" class="col-sm-6 code-pane medium-margin"></div>
+   <div id="{{ ids.ID_2 }}" class="col-sm-6 code-pane medium-margin"></div>
 </div>
 {% endblock %}
 
@@ -13,10 +14,18 @@
 $(document).ready(function() {
     var pagelets = {{ pagelets|safe }};
     loadPagelets(pagelets);
-
+    var nick = "{{ nick }}";
     $('#user-code').bind('keydown', function(data) {
-        socket.emit('input-code-stream', String.fromCharCode(data.keyCode));
+        var payload = {
+            'nick': nick,
+            'data': String.fromCharCode(data.keyCode),
+        }
+
+        socket.emit('input-code-stream', payload);
     });
+    $("#tabs").tabs()
+
+    $("#link-tab-" + nick).parent().remove();
 
 });
 </script>

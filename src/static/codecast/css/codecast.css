@@ -1,0 +1,104 @@
+body {
+    background: url('../images/login.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.full-height {
+    height: 100% !important;
+}
+
+.half-height {
+    height: 50% !important;
+
+}.full-width {
+    width: 100% !important;
+}
+
+.half-width {
+    width: 50% !important;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.small-margin {
+    margin-top: 10px;
+}
+
+.medium-margin {
+    margin-top: 20px;
+}
+
+.center {
+    float: none;
+    margin: 0 auto;
+}
+
+.ui-tabs {
+    padding: 10px;
+    height: 100%;
+}
+
+.code-pane {
+    opacity: 0.9;
+}
+
+.login-form {
+    padding-top: 50px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.white-font {
+    color: rgb(241, 241, 241);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.large {
+    font-size: 50px;
+}
+
+.big {
+    font-size: 40px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.head {
+    color:  rgb(241, 241, 241);
+    font-size: 50px;
+}
+
+.head:hover {
+    color:  rgb(241, 241, 241);
+    text-decoration: none;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}

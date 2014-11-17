@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row white-font row-centered">
+    <div class="col-sm-12 col-centered ">
+        <br>
+        <a href="/" class="head large bold">CodeCast</a>
+    </div>
+
+    <br>
+<br><br>
+
+    <div class="col-sm-6 col-centered content">
+        <h1 class="align-center">Code by collaboration</h1>
+        <br><br>
+        <h2 class="align-center">Houses hackers on the same window</h2>
+        <br><br>
+        <h4 class="align-center">CodeCast is a tool which allows coders to hack on projects, collaboratively, in realtime</h4>
+
+        <br><br>
+        <h2 class="align-center">Get Started, enter your nick below:</h2>
+        <br><br>
+
+        <table class="full-width">
+            <td>
+                <form id="set-nickname" method="post" action="/" class="form-horizontal" role="form">
+                <div class="form-group" align="center">
+                    <label class="col-xs-4 control-label">Nick</label>
+                    <div class="col-xs-4" >
+                        <input class="form-control" id="nick" name="nick" placeholder="batman / iron-man / hulk">
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+                </td>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('body').addClass("no-padding")
+    $('.navbar').hide();
+    $('.login').height($(window).height() - 1);
+});
+</script>
+{% endblock %}
