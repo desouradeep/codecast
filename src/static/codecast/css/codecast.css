@@ -27,6 +27,11 @@ body {
 
 .monospace {
     font-family: monospace;
+    font-size: 14px;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 .small-margin {
@@ -34,7 +39,11 @@ body {
 }
 
 .medium-margin {
-    margin-top: 20px;
+    margin-top: 25px;
+}
+
+.large-margin {
+    margin-top: 50px;
 }
 
 .center {
@@ -47,9 +56,6 @@ body {
     height: 100%;
 }
 
-.code-pane {
-    opacity: 0.9;
-}
 
 .login-form {
     padding-top: 50px;
@@ -76,7 +82,7 @@ body {
 }
 
 .bold {
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 .head {

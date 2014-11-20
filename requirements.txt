@@ -3,4 +3,5 @@ flask
 flask-socketio
 pika
 ipdb
+gevent-websocket
 

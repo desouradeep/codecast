@@ -17,12 +17,13 @@ Pythonic dependencies:
     3. flask-socketio
     4. pika
     5. ipdb (for debugging purposes)
+    6. gevent-websocket
 
 Installation:
 
-Install python-dev libxml2-dev libxslt-dev::
+Install python-devel::
     
-    $ sudo yum install python-dev libxml2-dev libxslt-dev
+    $ sudo yum install python-devel
 
 
 Create a virtual environment, ``codecast``, and install the dependencies::

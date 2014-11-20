@@ -21,5 +21,6 @@ $(document).ready(function() {
         var payload = JSON.parse(payload_);
         var nick = payload.nick;
         $('#tabs-' + nick).append(payload.data);
+        $('#link-tab-' + nick).addClass('bold');
     });
 });

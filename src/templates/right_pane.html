@@ -7,7 +7,7 @@
         </ul>
 
         {% for nick_ in all_nicks %}
-        <div id="tabs-{{ nick_ }}" class='read-pane'></div>
+        <div id="tabs-{{ nick_ }}" class='read-pane monospace'></div>
         {% endfor %}
     </div>
 </div>
@@ -19,7 +19,7 @@ socket.on('new-nick', function(nick) {
         "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "'>" + nick + "</a></li>"
     );
     $("#tabs").append(
-        "<div id='tabs-" + nick + "' class='read-pane'></div>"
+        "<div id='tabs-" + nick + "' class='read-pane monospace'></div>"
     )
     $("div#tabs").tabs("refresh");
 });

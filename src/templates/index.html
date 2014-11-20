@@ -14,7 +14,7 @@
 $(document).ready(function() {
     var pagelets = {{ pagelets|safe }};
     loadPagelets(pagelets);
-    var nick = "{{ nick }}";
+    nick = "{{ nick }}";
     $('#user-code').bind('keydown', function(data) {
         var payload = {
             'nick': nick,
@@ -26,6 +26,9 @@ $(document).ready(function() {
     $("#tabs").tabs()
 
     $("#link-tab-" + nick).parent().remove();
+    $('#link-tab-' + nick).click(function() {
+        $('#link-tab-' + nick).removeClass("bold");
+    });
 
 });
 </script>
