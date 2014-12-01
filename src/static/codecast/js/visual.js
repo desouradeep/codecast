@@ -18,6 +18,8 @@ function onResize() {
     $('.login').height($(window).height());
     // adjust textarea height
     $('.code-pane').height(window_height-80);
+
+    $('.read-pane').height(window_height-80-34);
 }
 
 function loadPagelets(pagelets) {

@@ -1,32 +1,73 @@
 <div id="view-pane" class="full-height monospace">
-    <div id="tabs">
-        <ul>
+    <div id="tabs" class="no-padding">
+        <ul class="no-margin no-border">
             {% for nick_ in all_nicks %}
                 <li><a id="link-tab-{{ nick_ }}" href="#tabs-{{ nick_ }}">{{ nick_ }}</a></li>
             {% endfor %}
         </ul>
 
         {% for nick_ in all_nicks %}
-        <div id="tabs-{{ nick_ }}" class='read-pane monospace'></div>
+        <div id="tabs-{{ nick_ }}" class='read-pane no-margin monospace ace-editor'></div>
         {% endfor %}
     </div>
 </div>
 
 {% block extra_js %}
 <script type="text/javascript">
+ace_readers = {}
+setupAceReader();
+$("#tabs").tabs({
+    activate: function(event, ui) {
+        var editor = ace_readers[ui.newPanel[0].id.substring(5)];
+        editor.resize();
+        editor.focus();
+    }
+});
+
 socket.on('new-nick', function(nick) {
     $("#tabs ul").append(
         "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "'>" + nick + "</a></li>"
     );
     $("#tabs").append(
-        "<div id='tabs-" + nick + "' class='read-pane monospace'></div>"
+        "<div id='tabs-" + nick + "' class='read-pane no-margin monospace ace-editor'></div>"
     )
     $("div#tabs").tabs("refresh");
+
+    setupAceReader(nick);
 });
 
 socket.on('nick-remove', function(nick) {
     $("#link-tab-" + nick).parent().remove();
     $("#tabs-" + nick).remove();
 });
+
+
+function setupAceReader(nick) {
+    /**
+    Setup all the ace editors on the right pane, with a "read-only" attribute
+    **/
+    var nicks = [];
+    if(nick) {
+        // setup ace editor for a particular nick. This is executed when the
+        // a new user joins in
+        nicks.push(nick);
+    }
+    else {
+        // setup all the nicks. This is executed when the page loads.
+        nicks = {{ all_nicks|safe }};
+    }
+
+    for(var i = 0 ; i < nicks.length ; i++) {
+        var nick = nicks[i];
+        ace_readers[nick] = ace.edit("tabs-" + nick);
+        ace_readers[nick].setTheme("ace/theme/monokai");
+        ace_readers[nick].setReadOnly(true);
+        ace_readers[nick].getSession().setMode("ace/mode/python");
+    }
+
+    onResize();
+
+}
+
 </script>
 {% endblock %}

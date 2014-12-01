@@ -31,7 +31,7 @@ body {
 }
 
 .no-margin {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .small-margin {
@@ -70,7 +70,11 @@ body {
 }
 
 .no-padding {
-    padding: 0;
+    padding: 0 !important;
+}
+
+.no-border {
+    border: 0 !important;
 }
 
 .large {
@@ -107,4 +111,22 @@ body {
     text-align:left;
     /* inline-block space fix */
     margin-right:-4px;
+}
+
+.ace-editor {
+    margin: 0;
+    border:0;
+}
+
+.ace-monokai {
+    background-color: #272822 !important;
+}
+
+.ui-widget-content {
+    background: none;
+}
+
+.ui-state-default {
+    background: #CCCCCC !important;
+    border-radius: 0 !important;
 }

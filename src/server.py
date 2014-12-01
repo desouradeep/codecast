@@ -72,6 +72,7 @@ def nick():
 @app.route('/', methods=('GET', 'POST'))
 def index():
     nick = utils.get_value_from_key('nick', request.form)
+
     if not nick:
         return render_template('login.html')
 

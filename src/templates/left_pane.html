@@ -1,1 +1,10 @@
-<textarea id="user-code" class="form-control full-height monospace"></textarea>
+<pre id="user-code" class="form-control full-height monospace ace-editor"></pre>
+
+{% block extra_js %}
+<script type="text/javascript">
+user_editor = ace.edit("user-code");
+user_editor.setTheme("ace/theme/monokai");
+user_editor.getSession().setMode("ace/mode/python");
+
+</script>
+{% endblock %}

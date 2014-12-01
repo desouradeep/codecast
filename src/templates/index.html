@@ -15,15 +15,15 @@ $(document).ready(function() {
     var pagelets = {{ pagelets|safe }};
     loadPagelets(pagelets);
     nick = "{{ nick }}";
-    $('#user-code').bind('keydown', function(data) {
+    user_editor.on('change', function(e) {
+        console.log(e['data']);
         var payload = {
             'nick': nick,
-            'data': String.fromCharCode(data.keyCode),
+            'data': JSON.stringify(e['data']),
         }
 
         socket.emit('input-code-stream', payload);
     });
-    $("#tabs").tabs()
 
     $("#link-tab-" + nick).parent().remove();
     $('#link-tab-' + nick).click(function() {

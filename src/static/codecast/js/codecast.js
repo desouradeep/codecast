@@ -19,8 +19,11 @@ $(document).ready(function() {
 
     socket.on('output-code-stream', function(payload_) {
         var payload = JSON.parse(payload_);
+        var deltas = [JSON.parse(payload['data'])];
+
         var nick = payload.nick;
-        $('#tabs-' + nick).append(payload.data);
+
+        ace_readers[nick].getSession().getDocument().applyDeltas(deltas);
         $('#link-tab-' + nick).addClass('bold');
     });
 });
