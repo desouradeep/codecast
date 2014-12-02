@@ -43,7 +43,15 @@
                 {% if nick %}
                 <div class="collapse navbar-collapse navHeaderCollapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>{{ nick }}</a></li>
+                        <li class="btn-group" data-toggle="buttons">
+                            <label id="dark-theme" class="btn btn-primary navbar-btn active">
+                                <input type="radio" name="options" id="option1" autocomplete="off" checked>Dark
+                            </label>
+                            <label id="light-theme" class="btn btn-primary navbar-btn">
+                                <input type="radio" name="options" id="option2" autocomplete="off">Light
+                            </label>
+                        </li>
+                        <li><a>Signed in as <b>{{ nick }}</b></a></li>
                         <li><a id="logout" href="#">Logout</a></li>
                     </ul>
                 </div>

@@ -3,6 +3,7 @@ $(document).ready(function() {
     $(window).resize(function() {
         onResize();
     });
+
 });
 
 function onResize() {
@@ -19,7 +20,7 @@ function onResize() {
     // adjust textarea height
     $('.code-pane').height(window_height-80);
 
-    $('.read-pane').height(window_height-80-34);
+    $('.read-pane').height(window_height-80-39);
 }
 
 function loadPagelets(pagelets) {
@@ -36,3 +37,23 @@ function loadPagelets(pagelets) {
         });
     }
 }
+
+$("#dark-theme").click(function() {
+    user_editor.setTheme("ace/theme/monokai");
+    for(var key in ace_readers) {
+        var reader = ace_readers[key];
+        reader.setTheme("ace/theme/monokai");
+    }
+    $(".tab-link").removeClass("tab-link-light");
+    $(".tab-link").addClass("tab-link-dark");
+});
+
+$("#light-theme").click(function() {
+    user_editor.setTheme("ace/theme/textmate");
+    for(var key in ace_readers) {
+        var reader = ace_readers[key];
+        reader.setTheme("ace/theme/textmate");
+    }
+    $(".tab-link").removeClass("tab-link-dark");
+    $(".tab-link").addClass("tab-link-light");
+});
