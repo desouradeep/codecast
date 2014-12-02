@@ -2,7 +2,7 @@
     <div id="tabs" class="no-padding">
         <ul class="no-margin no-border">
             {% for nick_ in all_nicks %}
-                <li><a id="link-tab-{{ nick_ }}" href="#tabs-{{ nick_ }}">{{ nick_ }}</a></li>
+                <li><a id="link-tab-{{ nick_ }}" href="#tabs-{{ nick_ }}" class="tab-link">{{ nick_ }} </a></li>
             {% endfor %}
         </ul>
 
@@ -26,7 +26,7 @@ $("#tabs").tabs({
 
 socket.on('new-nick', function(nick) {
     $("#tabs ul").append(
-        "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "'>" + nick + "</a></li>"
+        "<li><a id='link-tab-" + nick + "' href='#tabs-" + nick + "' class='tab-link'>" + nick + "</a></li>"
     );
     $("#tabs").append(
         "<div id='tabs-" + nick + "' class='read-pane no-margin monospace ace-editor'></div>"

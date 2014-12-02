@@ -127,6 +127,22 @@ body {
 }
 
 .ui-state-default {
-    background: #CCCCCC !important;
+    background: rgba(0,0,0,0) !important;
     border-radius: 0 !important;
+}
+
+.tab-link {
+    background: #272822 !important;
+    border: 0 !important;
+    border-radius: 3px 3px 0 0 !important;
+    padding: 10px 15px !important;
+    font-size: 15px;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+    color:#AAA !important;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+    color: #EEE !important;
 }
