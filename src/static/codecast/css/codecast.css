@@ -165,3 +165,7 @@ body {
 .tab-link-dark .ui-tabs-active a {
     color: #EEE !important;
 }
+
+.theme-toggler {
+    padding-left: 15px;
+}
